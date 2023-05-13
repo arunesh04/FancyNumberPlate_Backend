@@ -41,7 +41,7 @@ const numberPlateSchema = new mongoose.Schema({
         required: true
     },
     platePrize: {
-        type: Boolean,
+        type: Number,
         default: false
     },
     bookedBy: {
