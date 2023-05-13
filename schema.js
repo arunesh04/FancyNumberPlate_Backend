@@ -25,11 +25,11 @@ const userSchema = new mongoose.Schema({
     region: {
         type: String,
         required: true
-    },
-    bookedPlates: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'NumberPlate'
-    }]
+    }
+    // bookedPlates: [{
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'NumberPlate'
+    // }]
 });
 const numberPlateSchema = new mongoose.Schema({
     plateId:{
