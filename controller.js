@@ -35,16 +35,6 @@ module.exports.getUser = async (req,res) => {
     else
         res.send({msg:"user not found!"});
 }
-
-
-module.exports.deleteUser = async (req,res) => {
-    const user = await User.findOneAndDelete({email:req.params.email});
-    if(user)
-        res.send("User Deleted Sucessfully!");
-    else
-        res.send("User Doesn't Exist!");
-}
-
 module.exports.updateUser=async(req,res)=>{
     const user=await User.findOneAndUpdate({name:req.params.name},{$set:{ email: req.body.email,
         mobno:req.body.mobno,
@@ -74,9 +64,16 @@ module.exports.insertAdmin = async (req,res) => {
     res.send({msg:"Admin Added Sucessfully !"});
 }
 
-module.exports.getAdmin = async (req,res) => {
+module.exports.getallAdmin = async (req,res) => {
     const admin = await Admin.find({});
     res.send(admin)
+}
+module.exports.getAdmin = async (req,res) => {
+    const admin = await Admin.findOne({adminid:req.params.adid});
+    if(admin)
+        res.send(admin)
+    else
+        res.send({msg:"Admin not found!"});
 }
 
 module.exports.deleteAdmin = async (req,res) => {
@@ -85,6 +82,18 @@ module.exports.deleteAdmin = async (req,res) => {
         res.send("Admin Deleted Sucessfully!");
     else
         res.send("Admin Doesn't Exist!");
+}
+module.exports.updateAdmin=async(req,res)=>{
+    const admin=await Admin.findOneAndUpdate({adminid:req.params.adid},{$set:{ name: req.body.name,
+        mobno:req.body.mobno,
+        password:req.body.password,
+        city:req.body.city,
+        region:req.body.region,
+        enteredPlates:req.body.enteredPlates}},{new:true})
+        if(admin)
+            res.send("Admin updated")
+        else
+            res.send("Admin not found")    
 }
 
 //numberplate
@@ -100,9 +109,16 @@ module.exports.insertNumplate = async (req,res) => {
     res.send({msg:"Number Added Sucessfully !"});
 }
 
-module.exports.getNumberplate = async (req,res) => {
+module.exports.getallNumberplate = async (req,res) => {
     const numplate = await NumberPlate.find({});
     res.send(numplate)
+}
+module.exports.getNumberplate = async (req,res) => {
+    const numberplate = await NumberPlate.findOne({plateId:req.params.pid});
+    if(numberplate)
+        res.send(numberplate)
+    else
+        res.send({msg:"Plate not found!"});
 }
 
 module.exports.deleteNumberplate = async (req,res) => {
@@ -111,4 +127,13 @@ module.exports.deleteNumberplate = async (req,res) => {
         res.send("Numberplate Deleted Sucessfully!");
     else
         res.send("Numberplate Doesn't Exist!");
+}
+module.exports.updateNumberplate=async(req,res)=>{
+    const numberplate=await NumberPlate.findOneAndUpdate({plateid:req.params.plateId},{$set:{ plateNumber:req.body.plateNumber,
+        platePrize:req.body.platePrize,
+        bookedBy:req.body.bookedBy}},{new:true})
+        if(numberplate)
+            res.send("Plate updated")
+        else
+            res.send("Plate not found")    
 }
